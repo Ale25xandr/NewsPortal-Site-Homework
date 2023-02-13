@@ -24,6 +24,9 @@ class Author(models.Model):
         self.rating = rating_post + rating_comment + rating_comment_post
         self.save()
 
+    # def __str__(self):
+    #     return self.user.username
+
 
 class Category(models.Model):
     category = models.CharField(max_length=255, unique=True)
@@ -52,6 +55,9 @@ class Post(models.Model):
     def preview(self):
         text_1 = self.text[0:12:1]
         return text_1 + "..."
+
+    # def __str__(self):
+    #     return self.heading
 
     @staticmethod
     def best_post():

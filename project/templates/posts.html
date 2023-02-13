@@ -10,6 +10,7 @@ Post
 
 {% block content %}
     <h1>Все новости</h1>
+        <h2>{{now_time|date:'d.m.y'}}</h2>
         <h4 style="text-align: left;">{{'Всего новостей: '}}{{posts|length}}</h4>
         {% if posts %}
         <center>

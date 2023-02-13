@@ -10,10 +10,10 @@ class PostList(ListView):
     template_name = 'posts.html'
     context_object_name = 'posts'
 
-    # def get_context_data(self, **kwargs):
-    #     context = super().get_context_data(**kwargs)
-    #     context['now_time'] = datetime.utcnow()
-    #     return context
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now_time'] = datetime.utcnow()
+        return context
 
 
 class PostDetail(DetailView):
