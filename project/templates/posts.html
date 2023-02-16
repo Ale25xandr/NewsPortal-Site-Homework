@@ -23,8 +23,8 @@ Post
                 {% for post in posts %}
                 <tr>
                     <td>{{post.date_of_creation|date:'d.m.y'}}</td>
-                    <td>{{post.heading}}</td>
-                    <td>{{post.text|truncatechars:8}}</td>
+                    <td>{{post.heading|truncatechars:20}}</td>
+                    <td>{{post.text|truncatechars:20}}</td>
                 </tr>
                 {% endfor %}
             </table>
