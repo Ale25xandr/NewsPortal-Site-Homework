@@ -9,6 +9,7 @@ class PostList(ListView):
     ordering = '-date_of_creation'
     template_name = 'posts.html'
     context_object_name = 'posts'
+    paginate_by = 2
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -20,3 +21,4 @@ class PostDetail(DetailView):
     model = Post
     template_name = 'post.html'
     context_object_name = 'post'
+
