@@ -16,6 +16,3 @@ class PostFilter(FilterSet):
             attrs={'type': 'date'},
         ),
     )
-
-
-
