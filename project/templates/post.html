@@ -11,5 +11,6 @@ Post
 <h1>{{post.heading}}</h1>
     <h5 style="text-align: left;">{{'Дата создания: '}}{{post.date_of_creation|date:'d.m.y'}}</h5>
     <h5 style="text-align: left;">{{'Тип: '}}{{post.article}}</h5>
+<hr>
 <h5>{{post.text|censor}}</h5>
 {% endblock content %}

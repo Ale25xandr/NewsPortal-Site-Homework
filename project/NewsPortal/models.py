@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.urls import reverse
 
 
 class Author(models.Model):
@@ -24,21 +25,24 @@ class Author(models.Model):
         self.rating = rating_post + rating_comment + rating_comment_post
         self.save()
 
-    # def __str__(self):
-    #     return self.user.username
+    def __str__(self):
+        return self.user.username
 
 
 class Category(models.Model):
     category = models.CharField(max_length=255, unique=True)
 
+    def __str__(self):
+        return self.category
+
 
 class Post(models.Model):
     news = 'Новость'
     POST = 'Статья'
-    article = [(news, 'Новость'), (POST, "Статья")]
+    articl = [(news, 'Новость'), (POST, "Статья")]
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
-    article = models.CharField(max_length=255, choices=article, default='Новость')
-    date_of_creation = models.DateTimeField(auto_now_add=True)
+    article = models.CharField(max_length=255, choices=articl)
+    date_of_creation = models.DateTimeField()
     category = models.ManyToManyField(Category, through='PostCategory')
     heading = models.CharField(max_length=255)
     text = models.TextField()
@@ -56,8 +60,11 @@ class Post(models.Model):
         text_1 = self.text[0:12:1]
         return text_1 + "..."
 
-    # def __str__(self):
-    #     return self.heading
+    def __str__(self):
+        return self.heading
+
+    def get_absolute_url(self):
+        return reverse('post_list')
 
     @staticmethod
     def best_post():

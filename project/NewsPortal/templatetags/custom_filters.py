@@ -2,6 +2,7 @@ import pymorphy2
 
 from django import template
 
+
 register = template.Library()
 
 morph = pymorphy2.MorphAnalyzer()
@@ -32,3 +33,13 @@ def censor(text):
                 t[t.index(i)] = i[1:len(i):1].replace(i[1:len(i) - 2:1], '*' * len(i[1:len(i) - 2:1]))
 
     return " ".join(t)
+
+
+@register.simple_tag(takes_context=True)
+def url_replace(context, **kwargs):
+    d = context['request'].GET.copy()
+    for k, v in kwargs.items():
+        d[k] = v
+    return d.urlencode()
+
+
