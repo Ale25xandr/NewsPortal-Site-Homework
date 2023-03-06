@@ -42,7 +42,7 @@ class Post(models.Model):
     articl = [(news, 'Новость'), (POST, "Статья")]
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     article = models.CharField(max_length=255, choices=articl)
-    date_of_creation = models.DateTimeField()
+    date_of_creation = models.DateTimeField(auto_now_add=True)
     category = models.ManyToManyField(Category, through='PostCategory')
     heading = models.CharField(max_length=255)
     text = models.TextField()

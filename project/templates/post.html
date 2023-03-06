@@ -11,6 +11,10 @@ Post
 <h1>{{post.heading}}</h1>
     <h5 style="text-align: left;">{{'Дата создания: '}}{{post.date_of_creation|date:'d.m.y'}}</h5>
     <h5 style="text-align: left;">{{'Тип: '}}{{post.article}}</h5>
+<h5 style="text-align: left;">
+<a href="http://127.0.0.1:8000/news/{{post.id}}/update"><button>Редактировать</button></a>
+<a href="http://127.0.0.1:8000/news/{{post.id}}/delete"><button>Удалить</button></a>
+</h5>
 <hr>
 <h5>{{post.text|censor}}</h5>
 {% endblock content %}

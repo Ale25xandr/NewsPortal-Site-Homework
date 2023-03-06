@@ -5,13 +5,25 @@ from datetime import datetime
 from .filters import PostFilter
 from .forms import PostFormCreate_and_Update, UserFormUpdate
 from django.urls import reverse_lazy
-# from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class PostList(ListView):
     model = Post
     ordering = '-date_of_creation'
     template_name = 'posts.html'
+    context_object_name = 'posts'
+    paginate_by = 4
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['now_time'] = datetime.now()
+        return context
+
+
+class PostListSearch(ListView):
+    model = Post
+    ordering = '-date_of_creation'
+    template_name = 'post_search.html'
     context_object_name = 'posts'
     paginate_by = 4
 
