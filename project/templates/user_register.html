@@ -1,0 +1,17 @@
+{% extends 'flatpages/default.html' %}
+
+
+
+{% block content %}
+<h1>Регистрация</h1>
+<p>&nbsp;</p>
+<form action="" method="post">
+            {% csrf_token %}
+    {% for f in form %}
+    <p><label class = "form-label" for="{{f.id_for_label}}">{{f.label}}:&nbsp;</label>{{ f }}</p>
+    <div class="form-error">{{ f.errors }}</div>
+    {% endfor %}
+            <button type="submit">Зарегистрироваться</button>
+</form>
+<a class="nav-link" href="http://127.0.0.1:8000/account/signup/">Зарегистрироваться по E-mail</a></li>
+{% endblock content %}

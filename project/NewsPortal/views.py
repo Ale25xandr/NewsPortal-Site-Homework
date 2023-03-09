@@ -1,10 +1,14 @@
-from django.shortcuts import render
-from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
+from django.contrib.auth import logout
+from django.contrib.auth.views import LoginView, PasswordChangeView
+from django.shortcuts import render, redirect
+from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
 from .models import Post, User
 from datetime import datetime
 from .filters import PostFilter
-from .forms import PostFormCreate_and_Update, UserFormUpdate
+from .forms import PostFormCreate_and_Update, UserFormUpdate, UserPasswordChange, RegisterUserForm, \
+    UserAuthenticationForm
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class PostList(ListView):
@@ -45,7 +49,7 @@ class PostDetail(DetailView):
     context_object_name = 'post'
 
 
-class PostCreate(CreateView):
+class PostCreate(LoginRequiredMixin, CreateView):
     form_class = PostFormCreate_and_Update
     model = Post
     template_name = 'post_create.html'
@@ -67,4 +71,29 @@ class UserUpdate(UpdateView):
     form_class = UserFormUpdate
     model = User
     template_name = 'UserUpdate.html'
+    success_url = reverse_lazy('post_list')
+
+
+class LoginUser(LoginView):
+    form_class = UserAuthenticationForm
+    template_name = 'login.html'
+
+    def get_success_url(self):
+        return reverse_lazy('post_list')
+
+
+def logout_user(request):
+    logout(request)
+    return redirect('post_list')
+
+
+class User_password_change(PasswordChangeView):
+    form_class = UserPasswordChange
+    template_name = 'user_password_change.html'
+    success_url = reverse_lazy('post_list')
+
+
+class RegisterUser(CreateView):
+    form_class = RegisterUserForm
+    template_name = 'user_register.html'
     success_url = reverse_lazy('post_list')

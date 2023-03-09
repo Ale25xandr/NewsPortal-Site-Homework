@@ -14,13 +14,7 @@ Post
     <h1>Все новости</h1>
         <h2>{{now_time|date:'d.m.y H:i'}}</h2>
         <h4 style="text-align: left;">{{'Всего новостей: '}}{{posts|length}}</h4>
-<!--<hr>-->
-<!--        <form action="" method="get">-->
-<!--            {% csrf_token %}-->
-<!--            {{filterset.form.as_p}}-->
-<!--            <input type="submit" value="Найти" />-->
-<!--        </form>-->
-<!--<hr>-->
+<!---->
         {% if posts %}
         <center>
             <table>
