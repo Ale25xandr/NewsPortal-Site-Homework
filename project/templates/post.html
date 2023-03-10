@@ -13,10 +13,10 @@ Post
     <h5 style="text-align: left;">{{'Тип: '}}{{post.article}}</h5>
 <h5 style="text-align: left;">
     {% if request.user.is_authenticated %}
-    {% if request.user.is_superuser %}
+
 <a href="http://127.0.0.1:8000/news/{{post.id}}/update"><button>Редактировать</button></a>
 <a href="http://127.0.0.1:8000/news/{{post.id}}/delete"><button>Удалить</button></a>
-    {% endif %}
+
     {% endif %}
 </h5>
 <hr>

@@ -23,12 +23,15 @@
                         <li class="nav-item"><a class="nav-link" href="{% url 'create' %}">Создать</a></li>
                         <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/news/{{user.id}}/UpdateUser/">Редактировать профиль</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'post_search' %}">Поиск</a></li>
+                            {% if is_not_author %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'upgrade' %}">Стать автором</a></li>
+                            {% endif %}
                         <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">Выйти</a></li>
                         {% else %}
-                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Создать</a></li>
+                        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/account/login/">Создать</a></li>
                         <li class="nav-item"><a class="nav-link" href="{% url 'post_search' %}">Поиск</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'register' %}">Регистрация</a></li>
-                        <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Войти</a></li>
+                        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/account/signup/">Регистрация</a></li>
+                        <li class="nav-item"><a class="nav-link" href="http://127.0.0.1:8000/account/login/">Войти</a></li>
                         {% endif %}
                     </ul>
                 </div>

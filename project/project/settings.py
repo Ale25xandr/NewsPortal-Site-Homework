@@ -23,7 +23,7 @@ SECRET_KEY = 'django-insecure-hch71ooc2zy#gm2n#e-yw7200dh95xd8o-ptu=g4w_@e=8heac
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['127.0.0.1']
 
 
 # Application definition
@@ -142,13 +142,10 @@ ACCOUNT_EMAIL_VERIFICATION = 'none'
 
 
 AUTHENTICATION_BACKENDS = [
-    # Needed to login by username in Django admin, regardless of `allauth`
     'django.contrib.auth.backends.ModelBackend',
-
-    # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
 
 SITE_ID = 1
 
-ACCOUNT_FORMS = {'NewsPortal': 'sign.models.BasicSignupForm'}
+ACCOUNT_FORMS = {'signup': 'NewsPortal.forms.BasicSignupForm'}

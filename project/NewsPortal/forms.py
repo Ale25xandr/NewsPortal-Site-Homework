@@ -1,13 +1,10 @@
-from typing import Type
-
-import requests
+from allauth.account.forms import SignupForm
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
+from django.contrib.auth.models import Group, User
+from django.contrib.auth.views import PasswordChangeForm
 
-from .models import Post, User
-from django.contrib.auth.views import PasswordChangeForm, AuthenticationForm
-from allauth.account.forms import SignupForm
-from django.contrib.auth.models import Group
+from .models import Post
 
 
 class PostFormCreate_and_Update(forms.ModelForm):
@@ -40,24 +37,30 @@ class UserPasswordChange(PasswordChangeForm):
                                     widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
 
-class RegisterUserForm(UserCreationForm):
-    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'})),
-    password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-    password2 = forms.CharField(label='Повторите пароль',
-                                widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-
-
-class UserAuthenticationForm(AuthenticationForm):
-    username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'}))
-    password = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+# class RegisterUserForm(UserCreationForm):
+#     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'})),
+#     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+#     password2 = forms.CharField(label='Повторите пароль',
+#                                 widget=forms.PasswordInput(attrs={'class': 'form-input'}))
+#     email = forms.EmailField(label="Email")
+#
+#     class Meta:
+#         model = User
+#         fields = ("username",
+#                   "first_name",
+#                   "last_name",
+#                   "email",
+#                   "password1",
+#                   "password2",)
 
 
 class BasicSignupForm(SignupForm):
 
     def save(self, request):
         user = super(BasicSignupForm, self).save(request)
-        g = Group.objects.get(name='Authors')
+        g = Group.objects.get(name='Common')
         g.user_set.add(user)
         return user
+
 
 
