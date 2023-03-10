@@ -1,10 +1,13 @@
 from typing import Type
 
+import requests
 from django import forms
 from django.contrib.auth.forms import UserCreationForm
 
 from .models import Post, User
 from django.contrib.auth.views import PasswordChangeForm, AuthenticationForm
+from allauth.account.forms import SignupForm
+from django.contrib.auth.models import Group
 
 
 class PostFormCreate_and_Update(forms.ModelForm):
@@ -37,7 +40,7 @@ class UserPasswordChange(PasswordChangeForm):
                                     widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
 
-class RegisterUserForm(UserCreationForm):
+class RegisterUserForm(SignupForm):
     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'})),
     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
     password2 = forms.CharField(label='Повторите пароль',

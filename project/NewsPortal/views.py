@@ -1,4 +1,4 @@
-from django.contrib.auth import logout
+from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.views import LoginView, PasswordChangeView
 from django.shortcuts import render, redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
@@ -9,6 +9,7 @@ from .forms import PostFormCreate_and_Update, UserFormUpdate, UserPasswordChange
     UserAuthenticationForm
 from django.urls import reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.models import Group
 
 
 class PostList(ListView):
@@ -77,9 +78,6 @@ class UserUpdate(UpdateView):
 class LoginUser(LoginView):
     form_class = UserAuthenticationForm
     template_name = 'login.html'
-
-    def get_success_url(self):
-        return reverse_lazy('post_list')
 
 
 def logout_user(request):
