@@ -150,3 +150,5 @@ AUTHENTICATION_BACKENDS = [
 ]
 
 SITE_ID = 1
+
+ACCOUNT_FORMS = {'NewsPortal': 'sign.models.BasicSignupForm'}

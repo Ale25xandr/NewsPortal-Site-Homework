@@ -79,6 +79,9 @@ class LoginUser(LoginView):
     form_class = UserAuthenticationForm
     template_name = 'login.html'
 
+    def get_success_url(self):
+        return reverse_lazy('add_group')
+
 
 def logout_user(request):
     logout(request)
