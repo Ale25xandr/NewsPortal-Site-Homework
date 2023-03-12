@@ -7,7 +7,7 @@ from datetime import datetime
 from .filters import PostFilter
 from .forms import PostFormCreate_and_Update, UserFormUpdate, UserPasswordChange
 from django.urls import reverse_lazy
-from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 from django.contrib.auth.models import Group
 
 
@@ -50,19 +50,22 @@ class PostDetail(DetailView):
     context_object_name = 'post'
 
 
-class PostCreate(LoginRequiredMixin, CreateView):
+class PostCreate(PermissionRequiredMixin, CreateView):
+    permission_required = ('NewsPortal.add_post',)
     form_class = PostFormCreate_and_Update
     model = Post
     template_name = 'post_create.html'
 
 
-class PostUpdate(UpdateView):
+class PostUpdate(PermissionRequiredMixin, UpdateView):
+    permission_required = ('NewsPortal.change_post', )
     form_class = PostFormCreate_and_Update
     model = Post
     template_name = 'post_update.html'
 
 
-class PostDelete(DeleteView):
+class PostDelete(PermissionRequiredMixin, DeleteView):
+    permission_required = ('NewsPortal.delete_post',)
     model = Post
     template_name = 'post_delete.html'
     success_url = reverse_lazy('post_list')
@@ -82,9 +85,11 @@ def logout_user(request):
 
 def add_author(request):
     user = request.user
-    premium_group = Group.objects.get(name='Authors')
+    authors_group = Group.objects.get(name='Authors')
+    common_group = Group.objects.get(name='Common')
     if not request.user.groups.filter(name='Authors').exists():
-        premium_group.user_set.add(user)
+        authors_group.user_set.add(user)
+        common_group.user_set.remove(user)
     return redirect('post_list')
 
 
@@ -93,8 +98,3 @@ class User_password_change(PasswordChangeView):
     template_name = 'user_password_change.html'
     success_url = reverse_lazy('post_list')
 
-# class RegisterUser(CreateView):
-#     model = User
-#     form_class = RegisterUserForm
-#     template_name = 'user_register.html'
-#     success_url = reverse_lazy('post_list')

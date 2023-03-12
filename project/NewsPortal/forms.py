@@ -37,23 +37,6 @@ class UserPasswordChange(PasswordChangeForm):
                                     widget=forms.PasswordInput(attrs={'class': 'form-input'}))
 
 
-# class RegisterUserForm(UserCreationForm):
-#     username = forms.CharField(label='Логин', widget=forms.TextInput(attrs={'class': 'form-input'})),
-#     password1 = forms.CharField(label='Пароль', widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-#     password2 = forms.CharField(label='Повторите пароль',
-#                                 widget=forms.PasswordInput(attrs={'class': 'form-input'}))
-#     email = forms.EmailField(label="Email")
-#
-#     class Meta:
-#         model = User
-#         fields = ("username",
-#                   "first_name",
-#                   "last_name",
-#                   "email",
-#                   "password1",
-#                   "password2",)
-
-
 class BasicSignupForm(SignupForm):
 
     def save(self, request):
@@ -61,6 +44,3 @@ class BasicSignupForm(SignupForm):
         g = Group.objects.get(name='Common')
         g.user_set.add(user)
         return user
-
-
-
