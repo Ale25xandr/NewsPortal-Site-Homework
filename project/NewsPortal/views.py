@@ -2,7 +2,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from .models import Post, User
+from .models import Post, User, Author
 from datetime import datetime
 from .filters import PostFilter
 from .forms import PostFormCreate_and_Update, UserFormUpdate, UserPasswordChange
@@ -89,6 +89,7 @@ def add_author(request):
     common_group = Group.objects.get(name='Common')
     if not request.user.groups.filter(name='Authors').exists():
         authors_group.user_set.add(user)
+        Author.objects.create(user=request.user)
         common_group.user_set.remove(user)
     return redirect('post_list')
 

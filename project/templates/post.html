@@ -11,6 +11,7 @@ Post
 <h1>{{post.heading}}</h1>
     <h5 style="text-align: left;">{{'Дата создания: '}}{{post.date_of_creation|date:'d.m.y'}}</h5>
     <h5 style="text-align: left;">{{'Тип: '}}{{post.article}}</h5>
+    <h5 style="text-align: left;">{{'Категория: '}}{{post.name_category}}</h5>
 <h5 style="text-align: left;">
     {% if request.user.is_authenticated %}
 

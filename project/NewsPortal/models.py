@@ -1,7 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
 from django.urls import reverse
-from django.contrib.auth.models import Group
 
 
 class Author(models.Model):
@@ -64,8 +63,12 @@ class Post(models.Model):
     def __str__(self):
         return self.heading
 
-    def get_absolute_url(self):
+    @staticmethod
+    def get_absolute_url():
         return reverse('post_list')
+
+    def name_category(self):
+        return PostCategory.objects.get(id=self.id).category.category
 
     @staticmethod
     def best_post():
