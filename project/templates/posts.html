@@ -26,7 +26,7 @@ Post
                 {% for post in posts %}
                 <tr>
                     <td>{{post.date_of_creation|date:'d.m.y'}}</td>
-                    <td>{{post.heading|truncatechars:20}}</td>
+                    <td><a href="http://127.0.0.1:8000/news/{{post.id}}">{{post.heading|truncatechars:20}}</a></td>
                     <td>{{post.text|truncatechars:20}}</td>
                 </tr>
                 {% endfor %}

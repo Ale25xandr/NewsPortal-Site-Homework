@@ -31,6 +31,7 @@ class Author(models.Model):
 
 class Category(models.Model):
     category = models.CharField(max_length=255, unique=True)
+    subscrubers = models.ManyToManyField(User, related_name='category')
 
     def __str__(self):
         return self.category
@@ -43,7 +44,7 @@ class Post(models.Model):
     author = models.ForeignKey(Author, on_delete=models.CASCADE)
     article = models.CharField(max_length=255, choices=articl)
     date_of_creation = models.DateTimeField(auto_now_add=True)
-    category = models.ManyToManyField(Category, through='PostCategory')
+    category = models.ManyToManyField(Category, through='PostCategory', blank=False)
     heading = models.CharField(max_length=255)
     text = models.TextField()
     rating = models.IntegerField(default=0)
@@ -68,7 +69,13 @@ class Post(models.Model):
         return reverse('post_list')
 
     def name_category(self):
-        return PostCategory.objects.get(id=self.id).category.category
+        p = PostCategory.objects.filter(post_id=self.id)
+        p_1 = (p[i].category for i in range(0, len(p)))
+        p_ci = {}
+        for k in p_1:
+            p_ci[f'{k.id}'] = k.category
+        for c, i in p_ci.items():
+            yield c, i
 
     @staticmethod
     def best_post():

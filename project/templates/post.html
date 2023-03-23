@@ -2,16 +2,16 @@
 {% extends 'flatpages/default.html' %}
 {% load custom_filters %}
 
-{% block title %}
-Post
-{% endblock title %}
 
 
 {% block content %}
 <h1>{{post.heading}}</h1>
     <h5 style="text-align: left;">{{'Дата создания: '}}{{post.date_of_creation|date:'d.m.y'}}</h5>
     <h5 style="text-align: left;">{{'Тип: '}}{{post.article}}</h5>
-    <h5 style="text-align: left;">{{'Категория: '}}{{post.name_category}}</h5>
+<h5 style="text-align: left;">Категория:</h5>
+{% for i in post.name_category %}
+    <h5 style="text-align: left;"><a href="http://127.0.0.1:8000/news/category/{{i|cut_number}}/">{{i|cut_names}}</a></h5>
+{% endfor %}
 <h5 style="text-align: left;">
     {% if request.user.is_authenticated %}
 

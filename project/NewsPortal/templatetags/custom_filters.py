@@ -2,7 +2,6 @@ import pymorphy2
 
 from django import template
 
-
 register = template.Library()
 
 morph = pymorphy2.MorphAnalyzer()
@@ -43,3 +42,11 @@ def url_replace(context, **kwargs):
     return d.urlencode()
 
 
+@register.filter()
+def cut_names(i):
+    return i[1]
+
+
+@register.filter()
+def cut_number(i):
+    return i[0]
