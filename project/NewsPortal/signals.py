@@ -3,7 +3,7 @@ from django.template.loader import render_to_string
 from .models import User, PostCategory
 from django.db.models.signals import pre_save, m2m_changed
 from django.dispatch import receiver
-from django.core.mail import EmailMultiAlternatives, send_mail
+from django.core.mail import send_mail, EmailMultiAlternatives
 
 
 @receiver(m2m_changed, sender=PostCategory)

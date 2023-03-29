@@ -2,7 +2,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.views import PasswordChangeView
 from django.shortcuts import redirect
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView, TemplateView
-from .models import Post, User, Author, Category, PostCategory
+from .models import Post, User, Author, Category
 from datetime import datetime
 from .filters import PostFilter
 from .forms import PostFormCreate_and_Update, UserFormUpdate, UserPasswordChange
@@ -66,6 +66,12 @@ class PostCreate(PermissionRequiredMixin, CreateView):
     model = Post
     template_name = 'post_create.html'
     success_url = reverse_lazy('post_list')
+
+    def form_valid(self, form):
+        u = self.request.user
+        a = Author.objects.get(user=u)
+        form.instance.author = a
+        return super().form_valid(form)
 
 
 class PostUpdate(PermissionRequiredMixin, UpdateView):
@@ -176,3 +182,5 @@ def no_create(request):
 
 class CreateNo(TemplateView):
     template_name = 'create_no.html'
+
+

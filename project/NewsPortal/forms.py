@@ -9,13 +9,13 @@ from .models import Post
 class PostFormCreate_and_Update(forms.ModelForm):
     class Meta:
         model = Post
-        labels = {'author': 'Автор',
+        labels = {
                   'article': 'Тип',
                   'category': 'Категория',
                   'heading': 'Заголовок',
                   'text': 'Тест',
                   }
-        fields = ['author', 'article', 'category', 'heading', 'text']
+        fields = ['article', 'category', 'heading', 'text']
 
 
 class UserFormUpdate(forms.ModelForm):
